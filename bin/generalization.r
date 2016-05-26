@@ -35,7 +35,7 @@ out_name <- sprintf("../results/SVM_output/%s_model_highweightkmers_%s.tsv",s1,S
 cat("Writing the feature weights to ", out_name)
 write.table(fw, file=out_name,sep="\t")
 
-#apply the model to species2, test on half of the data due to the size of data
+#apply the model to species2
 species2 <- readDNAStringSet(s2_fh )
 species2_labels <- c(rep.int(1, times=s2_posN ), rep.int(-1, times=length(species2)-s2_posN))
 species2_test_fraction <- 1
