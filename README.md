@@ -1,6 +1,6 @@
 #Enhancer Code Conservation Documentation
 
-We developed a machine-learning based cross-species enhancer prediction framework to explore the conservation of enhancer sequence code in mammalian species. 
+We developed a machine-learning based cross-species enhancer prediction framework to explore the conservation of enhancer sequence code in mammalian species. We used an R packages, [kebabs](https://bioconductor.org/packages/release/bioc/html/kebabs.html) for building SVM models.
 
 Here we go through the analyses we performed in our manuscript. 
 
@@ -8,12 +8,12 @@ Here we go through the analyses we performed in our manuscript.
 ![alt text](https://github.com/lingchen42/EnhanceCodeConseravtion/blob/master/pipeline.png)
 ### Data
 We used two dataset, liver enhancers of 6 mammals (Villar et al. 2015) and limb enhancers of 3 mammals (Cotney et al. 2013). We then generated non-GC-controlled negatives and GC-controlled negatives for each set of enhancers. 
-These bed regions can be found in the `data/seq/`
+These bed regions can be found in the `data/seqs/`
 
 ### Figure 2: 5-mer specturm SVM models can accurately identified enhancers in diverse mammals.(Within species enhancer prediction)
 
 First, we demonstrated that the 5-mer specutrm SVM can accurately identified enhancers in diverse mammals.
-We use `twoBitToFa` to convert the bed files to fasta sequences and use  `cross_validation.r` to perform within species enhancer predictions. The usage is
+We use `twoBitToFa`, an tool from [UCSC command line bioinformatic utilities](https://github.com/ENCODE-DCC/kentUtils) to convert the bed files to fasta sequences and use  `cross_validation.r` to perform within species enhancer predictions. The usage is
 ```
 ./cross_validation.r <Species> <Enhancers and Negatives sequence file> <Number of enhancers>
 ```
