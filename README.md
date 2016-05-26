@@ -1,8 +1,20 @@
 #Enhancer Code Conservation Documentation
 
-We developed a machine-learning based cross-species enhancer prediction framework to explore the conservation of enhancer sequence code in mammalian species. We used an R packages, [kebabs](https://bioconductor.org/packages/release/bioc/html/kebabs.html) for building SVM models.
+We developed a machine-learning based cross-species enhancer prediction framework to explore the conservation of enhancer sequence code in mammalian species. We demonstrated that k-mer spectrum based SVM models accurately identified adult liver and developing limb enhancers in mammals. Applying these classifiers across species, the performance is remarkably conserved; classifers trained in different species performed nearly as well as classifiers trained on the target species. These results suggest that, elements of the regulatory sequence code have been maintained across more than 180 million years of mammalian evolution. 
 
-Here we go through the analyses we performed in our manuscript. 
+We used an R packages, [kebabs](https://bioconductor.org/packages/release/bioc/html/kebabs.html) for building SVM models. The `generalization.r` script can be adapted to predict putative regulatory elements in species for which experimental data are not currently avaiable. 
+- Prerequisites
+  - [kebabs](https://bioconductor.org/packages/release/bioc/html/kebabs.html)
+- Usage
+  - This script is set up in a training and evaluation setting. If it is for pure prediction, it is OK to set `<Species_2 Number of enhancers>` and ignore the evaluation accuracy. The resulting `../results/SVM_output/<species_1>_applyto_<species_2>_<data>.tsv` contains the prediction scores. The regions of species\_2 with `decision` equals to 1 are putative enhancers. The regions can also be ranked by `response` column and the regions with larger positive values are more likely to be enhancers.
+  - In genome, negatives regions are a lot more than enhancers. Although we showed the highly conserved performance of enhancer classifiers when applied across species, it is likely to have a large portion of false positives in practice given the high ratio of negative regions. Use a strict cutoff or choose regions that you want to predict based some other criteria will help reduce the false postive rate.
+  - The default enhancers/negatives ratio is 10. If other ratio is used, please change class weights `wts`.
+  ```
+  ./generalization.r <species_1, used to trained the model> <species_1 Enhancers and Negatives sequence file> <Species_1 Number of enhancers> 
+  <species_2, used to trained the model> <species_2 Enhancers and Negatives sequence file> <Species_2 Number of enhancers>  
+  ```
+
+**Here we go through the analyses we performed in our manuscript.** 
 
 ### Work Pipeline
 ![alt text](https://github.com/lingchen42/EnhanceCodeConseravtion/blob/master/pipeline.png)
@@ -29,9 +41,7 @@ We evaluated the within species enhancer prediction performace with ROC and PR c
 ```
 ### Figure 3: Enhancer classifiers perform well when applied across species (Cross species enhancer prediction)
 
-Next, we applied SVM models trained in one species across species with `generalization.r`. The usage is
-./generalization.r <species_1, used to trained the model> <species_1 Enhancers and Negatives sequence file> <Number of enhancers>  <species_2, used to trained the model> <species_2 Enhancers and Negatives sequence file> <Number of enhancers> 
-The complete commands we used to perform cross species enhancer prediction are listed in `crossspecies.sh`.
+Next, we applied SVM models trained in one species across species with `generalization.r`. The complete commands we used to perform cross species enhancer prediction are listed in `crossspecies.sh`.
 
 The SVM models trained with human liver enhancers can predict enhancers in other species as well.
 ```
