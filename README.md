@@ -1,4 +1,4 @@
-#Enhancer Code Conservation Documentation
+# Enhancer Code Conservation Documentation
 
 We developed a machine-learning based cross-species enhancer prediction framework to explore the conservation of enhancer sequence code in mammalian species. We demonstrated that k-mer spectrum based SVM models accurately identified adult liver and developing limb enhancers in mammals. Applying these classifiers across species, the performance is remarkably conserved; classifers trained in different species performed nearly as well as classifiers trained on the target species. These results suggest that, elements of the regulatory sequence code have been maintained across more than 180 million years of mammalian evolution. 
 
